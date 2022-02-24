@@ -2,16 +2,22 @@
   <div class="ui card">
     <h1>Team generator</h1>
     <ul class="list">
-      <li>Taha KAMIL</li>
-      <li>Jamal Rahimi</li>
+      <li *ngFor="let member of members">{{ member }}</li>
     </ul>
     <div class="add-members-container">
-      <input type="text" placeholder="name" />
-      <button>Add</button>
+      <input
+        type="text"
+        placeholder="name"
+        #inputMember
+        (input)="typing(inputMember.value)"
+        [value]="newMemberName"
+      />
+      <button (click)="addMember()">Add</button>
     </div>
     <div class="input-container">
       <input type="text" placeholder="# of team" />
       <button>Generate</button>
     </div>
+    <p *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</p>
   </div>
 </div>
