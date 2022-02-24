@@ -15,8 +15,8 @@
       <button (click)="addMember()">Add</button>
     </div>
     <div class="input-container">
-      <input type="text" placeholder="# of team" />
-      <button>Generate</button>
+      <input type="text" placeholder="# of team" [value]="nbreTeam" />
+      <button (click)="generateTeam()">Generate</button>
     </div>
     <p *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</p>
   </div>
