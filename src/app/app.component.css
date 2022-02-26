@@ -6,6 +6,7 @@
 
 h1 {
   font-size: 3rem;
+  text-align: center;
 }
 
 .list {
@@ -60,8 +61,15 @@ h1 {
   color: red;
 }
 
-li {
-  list-style: none;
-  font-size: 1.25rem;
-  margin-bottom: 00.5rem;
+#button2,
+#button1 {
+  display: inline-block;
+}
+#button1 {
+  width: 50%;
+}
+
+#button2 {
+  background-color: crimson;
+  width: 50%;
 }

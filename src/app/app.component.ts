@@ -9,45 +9,64 @@ export class AppComponent {
   newMemberName = '';
   members: string[] = [];
   errorMessage = '';
-  nbreTeam = 0;
-  teams : string[][] = [];
+  nbrOfTeams: number | string = '';
+  teams: string[][] = [];
+
+  reset() {
+    this.members = [];
+    this.errorMessage = '';
+    this.nbrOfTeams = 0;
+    this.teams = [];
+  }
 
   generateTeam() {
-    this.errorMessage = '';
-    let memberSize = this.members.length;
-
-    if(this.nbreTeam<1){
-      this.errorMessage = '# teams must be greater than 1';
-      return
+    if (!this.controleInput()) {
+      return;
     }
 
-    if (memberSize == 0) {
-      this.errorMessage = 'no member found';
-      return
+    let memberList = this.members;
+
+    for (let x = 0; x < this.nbrOfTeams; x++) {
+      this.teams[x] = new Array();
     }
 
-    if (memberSize < this.nbreTeam) {
-      this.errorMessage = '# members should be greater than # teams ';
-      return
-    }
+    while (memberList.length) {
+      for (let i = 0; i < this.nbrOfTeams; i++) {
+        let randomIndex = Math.floor(Math.random() * memberList.length);
+        this.teams[i].push(memberList[randomIndex]);
 
-    let nbr = memberSize / this.nbreTeam;
-
-    for (let i = 0; i < this.nbreTeam ; i++) {
-      this.teams[i]= [];
-      for (let j = 0; j < nbr; j++) {
-        if (this.members.length>0) {
-          this.teams[i][j] =  this.members.pop() || '';
+        memberList.splice(randomIndex, 1);
+        if (!memberList.length) {
+          break;
         }
       }
     }
     console.log(this.teams);
-
-
   }
 
-  inputTeam(nbr : number){
-    this.nbreTeam = nbr;
+  controleInput() {
+    this.errorMessage = '';
+    let memberSize = this.members.length;
+
+    if (this.nbrOfTeams < 1) {
+      this.errorMessage = '# of teams must be greater than 1';
+      return false;
+    }
+
+    if (memberSize == 0) {
+      this.errorMessage = 'no member found';
+      return false;
+    }
+
+    if (memberSize < this.nbrOfTeams) {
+      this.errorMessage = '# of members should be greater than # of teams ';
+      return false;
+    }
+    return true;
+  }
+
+  inputTeam(nbr: string) {
+    this.nbrOfTeams = Number(nbr);
   }
 
   addMember() {
